@@ -174,7 +174,14 @@ begin
     jsonb_build_object('token_hash', encode(public.net__hash_token('JJJJ8888KKKK9999'), 'hex'), 'printed_code', 'ABCD24', 'batch', 'B1'))));
   perform nettest.ok((res ->> 'inserted')::int = 1 and (res ->> 'skipped')::int = 1, 'import skips duplicates: ' || res::text);
 
-  -- T19 kill switch: paused, nothing written
+  -- T19 kill switch: desk role cannot flip it; admin can. Paused means nothing written.
+  begin
+    perform nettest.call(staff, 'public.net_admin_set_flag(''tap'', false)');
+    raise exception 'FAIL: desk role flipped the kill switch';
+  exception when raise_exception then
+    perform nettest.ok(sqlerrm = 'net:forbidden', 'kill switch is admin-only: ' || sqlerrm);
+  end;
+  update public.net_staff set role = 'admin' where user_id = staff;
   perform nettest.call(staff, 'public.net_admin_set_flag(''tap'', false)');
   n := (select count(*) from public.net_tap_events);
   perform nettest.ok(nettest.call(null, format('public.net_resolve_token(%L)', tok_spare)) = '{"state":"paused"}', 'T19 resolve paused');

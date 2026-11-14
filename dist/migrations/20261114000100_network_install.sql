@@ -321,6 +321,12 @@ returns boolean language sql stable security definer set search_path = '' as $$
   select exists (select 1 from public.net_staff s where s.user_id = auth.uid())
 $$;
 
+-- 3b. Organisers (admin) may flip the kill switch. Default: net_staff role 'admin'.
+create or replace function public.net_is_admin()
+returns boolean language sql stable security definer set search_path = '' as $$
+  select exists (select 1 from public.net_staff s where s.user_id = auth.uid() and s.role = 'admin')
+$$;
+
 -- 4. Host confirmation of a meeting (docs/DECISIONS.md E-07). Return true when the host's own data proves the meeting
 --    happened with both people's consent, for example an accepted coffee request between the two users. Default:
 --    false, so a one-sided record_meeting never forces an edge onto someone else's map.
@@ -1546,48 +1552,43 @@ $$;
 create or replace function public.net__similarity_pairs(p_user uuid default null)
 returns table (a uuid, b uuid, score real)
 language sql stable security definer set search_path = '' as $$
+  -- Set-based: shared counts per pair come from grouped self-joins; no per-pair function calls.
   with w as (select public.net__sim_weights() as w),
-  th as (select t.user_id, array_agg(t.theme_id) arr from public.net_profile_themes t group by t.user_id),
-  it as (select e.user_id, (select array_agg(distinct lower(x)) from unnest(e.interests) x) arr
-         from public.net_profile_ext e where cardinality(e.interests) > 0),
-  st as (select s.user_id, array_agg(distinct s.session_id) arr from public.net_starred_sessions s group by s.user_id),
+  tr as (select t.user_id u, t.theme_id::text v from public.net_profile_themes t),
+  ir as (select distinct e.user_id u, lower(x) v from public.net_profile_ext e, unnest(e.interests) x),
+  sr as (select distinct s.user_id u, s.session_id v from public.net_starred_sessions s),
   adj as (select c.a x, c.b y from public.net_connections c where c.removed_at is null
           union all select c.b, c.a from public.net_connections c where c.removed_at is null),
-  cand as (
-    select distinct least(t1.user_id, t2.user_id) a, greatest(t1.user_id, t2.user_id) b
-      from public.net_profile_themes t1 join public.net_profile_themes t2
-        on t1.theme_id = t2.theme_id and t1.user_id <> t2.user_id
-     where p_user is null or t1.user_id = p_user
-    union
-    select least(i1.user_id, i2.user_id), greatest(i1.user_id, i2.user_id)
-      from it i1 join it i2 on i1.user_id <> i2.user_id and i1.arr && i2.arr
-     where p_user is null or i1.user_id = p_user
-    union
-    select least(s1.user_id, s2.user_id), greatest(s1.user_id, s2.user_id)
-      from st s1 join st s2 on s1.user_id <> s2.user_id and s1.arr && s2.arr
-     where p_user is null or s1.user_id = p_user
-    union
-    select least(j1.x, j2.x), greatest(j1.x, j2.x)
-      from adj j1 join adj j2 on j1.y = j2.y and j1.x <> j2.x
-     where p_user is null or j1.x = p_user
+  nt as (select u, count(*) n from tr group by u),
+  ni as (select u, count(*) n from ir group by u),
+  ns as (select u, count(*) n from sr group by u),
+  pairs as (
+    select least(r1.u, r2.u) a, greatest(r1.u, r2.u) b, count(*) st, 0::bigint si, 0::bigint ss, 0::bigint m
+      from (select * from tr where p_user is null or u = p_user) r1 join tr r2 on r1.v = r2.v
+       and ((p_user is null and r1.u < r2.u) or (p_user is not null and r1.u <> r2.u)) group by 1, 2
+    union all
+    select least(r1.u, r2.u), greatest(r1.u, r2.u), 0, count(*), 0, 0
+      from (select * from ir where p_user is null or u = p_user) r1 join ir r2 on r1.v = r2.v
+       and ((p_user is null and r1.u < r2.u) or (p_user is not null and r1.u <> r2.u)) group by 1, 2
+    union all
+    select least(r1.u, r2.u), greatest(r1.u, r2.u), 0, 0, count(*), 0
+      from (select * from sr where p_user is null or u = p_user) r1 join sr r2 on r1.v = r2.v
+       and ((p_user is null and r1.u < r2.u) or (p_user is not null and r1.u <> r2.u)) group by 1, 2
+    union all
+    select least(j1.x, j2.x), greatest(j1.x, j2.x), 0, 0, 0, count(*)
+      from (select * from adj where p_user is null or x = p_user) j1 join adj j2 on j1.y = j2.y
+       and ((p_user is null and j1.x < j2.x) or (p_user is not null and j1.x <> j2.x)) group by 1, 2
   ),
-  f as (
-    select c.a, c.b,
-      coalesce(ta.arr, '{}') ta, coalesce(tb.arr, '{}') tb,
-      coalesce(ia.arr, '{}') ia, coalesce(ib.arr, '{}') ib,
-      coalesce(sa.arr, '{}') sa, coalesce(sb.arr, '{}') sb,
-      (select count(*) from adj j1 join adj j2 on j1.y = j2.y where j1.x = c.a and j2.x = c.b) mutual
-    from cand c
-    left join th ta on ta.user_id = c.a left join th tb on tb.user_id = c.b
-    left join it ia on ia.user_id = c.a left join it ib on ib.user_id = c.b
-    left join st sa on sa.user_id = c.a left join st sb on sb.user_id = c.b
-  )
-  select f.a, f.b, least(1.0, greatest(0.0,
-      w.w[1] * public.net__jaccard(f.ta::text[], f.tb::text[])
-    + w.w[2] * public.net__cosine(f.ia, f.ib)
-    + w.w[3] * public.net__jaccard(f.sa, f.sb)
-    + w.w[4] * least(1.0, f.mutual / 5.0)))::real
-  from f, w
+  agg as (select p.a, p.b, sum(p.st) st, sum(p.si) si, sum(p.ss) ss, sum(p.m) m from pairs p group by p.a, p.b)
+  select g.a, g.b, least(1.0, greatest(0.0,
+      w.w[1] * coalesce(g.st::real / nullif(coalesce(ta.n, 0) + coalesce(tb.n, 0) - g.st, 0), 0)
+    + w.w[2] * coalesce(g.si::real / nullif(sqrt(coalesce(ia.n, 0)::real * coalesce(ib.n, 0)), 0), 0)
+    + w.w[3] * coalesce(g.ss::real / nullif(coalesce(sa.n, 0) + coalesce(sb.n, 0) - g.ss, 0), 0)
+    + w.w[4] * least(1.0, g.m / 5.0)))::real
+  from agg g cross join w
+  left join nt ta on ta.u = g.a left join nt tb on tb.u = g.b
+  left join ni ia on ia.u = g.a left join ni ib on ib.u = g.b
+  left join ns sa on sa.u = g.a left join ns sb on sb.u = g.b
 $$;
 
 -- Keep the top 8 edges per person among the given pairs.
@@ -1654,7 +1655,7 @@ returns jsonb language plpgsql security definer set search_path = '' as $$
 declare me uuid := public.net__uid();
 begin
   return jsonb_build_object('staff', public.net_is_staff(),
-                            'role', (select s.role from public.net_staff s where s.user_id = me));
+                            'role', case when public.net_is_admin() then 'admin' when public.net_is_staff() then 'desk' end);
 end $$;
 
 create or replace function public.net__card_json(c public.net_cards)
@@ -1846,6 +1847,7 @@ create or replace function public.net_admin_set_flag(p_key text, p_enabled boole
 returns jsonb language plpgsql security definer set search_path = '' as $$
 begin
   perform public.net__require_staff();
+  if not public.net_is_admin() then raise exception 'net:forbidden' using errcode = 'P0001'; end if;
   if p_key not in ('tap', 'map', 'overlap', 'galaxy', 'digital_pass') then return jsonb_build_object('error', 'bad_key'); end if;
   insert into public.net_feature_flags (key, enabled) values (p_key, p_enabled)
   on conflict (key) do update set enabled = excluded.enabled;

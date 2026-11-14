@@ -14,7 +14,7 @@ returns jsonb language plpgsql security definer set search_path = '' as $$
 declare me uuid := public.net__uid();
 begin
   return jsonb_build_object('staff', public.net_is_staff(),
-                            'role', (select s.role from public.net_staff s where s.user_id = me));
+                            'role', case when public.net_is_admin() then 'admin' when public.net_is_staff() then 'desk' end);
 end $$;
 
 create or replace function public.net__card_json(c public.net_cards)
@@ -206,6 +206,7 @@ create or replace function public.net_admin_set_flag(p_key text, p_enabled boole
 returns jsonb language plpgsql security definer set search_path = '' as $$
 begin
   perform public.net__require_staff();
+  if not public.net_is_admin() then raise exception 'net:forbidden' using errcode = 'P0001'; end if;
   if p_key not in ('tap', 'map', 'overlap', 'galaxy', 'digital_pass') then return jsonb_build_object('error', 'bad_key'); end if;
   insert into public.net_feature_flags (key, enabled) values (p_key, p_enabled)
   on conflict (key) do update set enabled = excluded.enabled;

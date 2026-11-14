@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
     "module": "ESNext",
     "moduleResolution": "Bundler",
     "jsx": "react-jsx",
@@ -15,9 +19,33 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "types": ["vite/client", "node"],
+    "types": [
+      "vite/client",
+      "node"
+    ],
     "baseUrl": ".",
-    "paths": { "@/*": ["src/*"] }
+    "paths": {
+      "@/network.adapter": [
+        "harness/src/network.adapter.ts"
+      ],
+      "@/network.routes": [
+        "integration/vite-react-router/src/network.routes.tsx"
+      ],
+      "@/integrations/supabase/client": [
+        "harness/src/host-stubs/supabase-client.ts"
+      ],
+      "@/*": [
+        "src/*"
+      ]
+    }
   },
-  "include": ["src", "harness/src", "harness/vite.config.ts", "integration/vite-react-router", "e2e", "vitest.config.ts", "playwright.config.ts"]
+  "include": [
+    "src",
+    "harness/src",
+    "harness/vite.config.ts",
+    "integration/vite-react-router",
+    "e2e",
+    "vitest.config.ts",
+    "playwright.config.ts"
+  ]
 }

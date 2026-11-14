@@ -68,6 +68,12 @@ returns boolean language sql stable security definer set search_path = '' as $$
   select exists (select 1 from public.net_staff s where s.user_id = auth.uid())
 $$;
 
+-- 3b. Organisers (admin) may flip the kill switch. Default: net_staff role 'admin'.
+create or replace function public.net_is_admin()
+returns boolean language sql stable security definer set search_path = '' as $$
+  select exists (select 1 from public.net_staff s where s.user_id = auth.uid() and s.role = 'admin')
+$$;
+
 -- 4. Host confirmation of a meeting (docs/DECISIONS.md E-07). Return true when the host's own data proves the meeting
 --    happened with both people's consent, for example an accepted coffee request between the two users. Default:
 --    false, so a one-sided record_meeting never forces an edge onto someone else's map.

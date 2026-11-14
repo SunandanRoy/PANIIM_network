@@ -22,7 +22,7 @@ function psql(args, label) {
     process.exit(1);
   }
   console.log(`✓ ${label} (${Date.now() - t} ms)`);
-  for (const l of out) if (/PASS|RESULT|NOTICE:  (net|ok)/.test(l)) console.log("    " + l.replace(/^.*NOTICE:\s+/, ""));
+  for (const l of out) if (/PASS|RESULT|NOTICE: {2}(net|ok)/.test(l)) console.log("    " + l.replace(/^.*NOTICE:\s+/, ""));
 }
 const file = (p) => ["-d", db, "-f", join(root, p)];
 
