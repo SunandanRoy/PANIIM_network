@@ -1,0 +1,1121 @@
+{
+ "epics": {
+  "E0": "Foundations & decisions",
+  "E1": "NFC cards & ops",
+  "E2": "Tap flow & connections",
+  "E3": "Profile & consent",
+  "E4": "Constellation graph",
+  "E5": "Overlap & discovery",
+  "E6": "Admin, security & data",
+  "E7": "QA, rollout & hypercare"
+ },
+ "tickets": [
+  {
+   "id": "K-01",
+   "epic": "E0",
+   "title": "Recon of Pan-IIM app, PlanOS site and Cinemetrica reference",
+   "pri": "P0",
+   "role": "PM",
+   "est": 0.5,
+   "due": "2026-11-13",
+   "deps": [],
+   "ac": "Findings logged in PRD section 2 with source links.",
+   "done": true,
+   "ext": 0,
+   "status": "done",
+   "crit": false,
+   "slack": 0.0
+  },
+  {
+   "id": "K-02",
+   "epic": "E0",
+   "title": "Draft PRD v0.1",
+   "pri": "P0",
+   "role": "PM",
+   "est": 0.5,
+   "due": "2026-11-13",
+   "deps": [
+    "K-01"
+   ],
+   "ac": "PRD v0.1 published and shared with organizers.",
+   "done": true,
+   "ext": 0,
+   "status": "done",
+   "crit": false,
+   "slack": 0.0
+  },
+  {
+   "id": "K-03",
+   "epic": "E0",
+   "title": "Confirm stack, repo access, staging and deploy path with the PlanOS team",
+   "pri": "P0",
+   "role": "PM",
+   "est": 0.5,
+   "due": "2026-11-14",
+   "deps": [
+    "K-02"
+   ],
+   "ac": "Written confirmation of framework, backend, auth provider, storage and deploy flow; staging URL; permission to add tables and server functions.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-04",
+   "epic": "E0",
+   "title": "Decide chip tier (A: NTAG21x static, B: NTAG 424 DNA) from vendor quotes and lead times",
+   "pri": "P0",
+   "role": "OPS",
+   "est": 0.5,
+   "due": "2026-11-14",
+   "deps": [
+    "K-02"
+   ],
+   "ac": "Two written quotes with unit price, lead time and pre-encoding capability; tier chosen and logged as D-1.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-05",
+   "epic": "E0",
+   "title": "Organizer sign-off on headcount, privacy defaults, retention and fiduciary wording",
+   "pri": "P0",
+   "role": "PM",
+   "est": 0.5,
+   "due": "2026-11-15",
+   "deps": [
+    "K-02"
+   ],
+   "ac": "Headcount N, consent defaults, 30-day retention and the data-fiduciary name confirmed in writing.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 2.0
+  },
+  {
+   "id": "K-06",
+   "epic": "E0",
+   "title": "Seed theme taxonomy (domains) from the paper tracks and wireframe themes",
+   "pri": "P0",
+   "role": "BE",
+   "est": 0.5,
+   "due": "2026-11-16",
+   "deps": [
+    "K-03"
+   ],
+   "ac": "themes table holds 8 to 12 rows with slug, label, colour; every paper track and every wireframe theme chip maps to one theme.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-10",
+   "epic": "E1",
+   "title": "Card artwork: logo, QR, printed 6-char code, tap-here mark; vendor spec sheet",
+   "pri": "P0",
+   "role": "DS",
+   "est": 1.0,
+   "due": "2026-11-15",
+   "deps": [
+    "K-04"
+   ],
+   "ac": "Print-ready file approved by organizers; vendor confirms spec in writing.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-12",
+   "epic": "E1",
+   "title": "Token generator, card manifest CSV and pre-bound pass list (80-bit tokens, printed codes, name on card)",
+   "pri": "P0",
+   "role": "BE",
+   "est": 1.0,
+   "due": "2026-11-15",
+   "deps": [
+    "K-04"
+   ],
+   "ac": "Script outputs N plus 10% spares, zero duplicate tokens, CSV matches vendor encoding template; if D-2 is pre-bound, every delegate row carries a token.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-11",
+   "epic": "E1",
+   "title": "Place card order with 10% spares (quantity = ceil(1.1 x N))",
+   "pri": "P0",
+   "role": "OPS",
+   "est": 0.5,
+   "due": "2026-11-15",
+   "deps": [
+    "K-10",
+    "K-12"
+   ],
+   "ac": "Order confirmation with ship date no later than 18 Nov.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-17",
+   "epic": "E1",
+   "title": "Vendor production and transit to Shillong (external wait, 10 days assumed)",
+   "pri": "P0",
+   "role": "OPS",
+   "est": 0.0,
+   "due": "2026-11-25",
+   "deps": [
+    "K-11"
+   ],
+   "ac": "Cards physically on campus by 25 Nov.",
+   "done": false,
+   "ext": 10,
+   "status": "backlog",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-13",
+   "epic": "E1",
+   "title": "Dev test tags: write 20 blank NTAG tags with test URLs for engineers",
+   "pri": "P0",
+   "role": "OPS",
+   "est": 0.5,
+   "due": "2026-11-16",
+   "deps": [
+    "K-04"
+   ],
+   "ac": "20 tags in engineers' hands; each opens /t/<test-token> on iPhone XS+ and Android.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 12.0
+  },
+  {
+   "id": "K-14",
+   "epic": "E1",
+   "title": "Vendor pre-production sample: 5 encoded cards air-shipped",
+   "pri": "P1",
+   "role": "OPS",
+   "est": 0.5,
+   "due": "2026-11-20",
+   "deps": [
+    "K-11"
+   ],
+   "ac": "5 samples read correctly by 6 phone models; photo proof of print quality.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 7.5
+  },
+  {
+   "id": "K-15",
+   "epic": "E1",
+   "title": "Goods-in check: count, read-test 10% sample, quarantine failures",
+   "pri": "P0",
+   "role": "OPS",
+   "est": 1.0,
+   "due": "2026-11-26",
+   "deps": [
+    "K-17"
+   ],
+   "ac": "Failure rate under 2% on sample; failed cards logged and replaced from spares.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-16",
+   "epic": "E1",
+   "title": "Desk kit: signage, volunteer script, spare cards, NFC-capable test phones",
+   "pri": "P1",
+   "role": "OPS",
+   "est": 1.0,
+   "due": "2026-11-26",
+   "deps": [
+    "K-04"
+   ],
+   "ac": "Kit checklist signed off by desk lead; spares added from the goods-in batch.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 11.5
+  },
+  {
+   "id": "K-20",
+   "epic": "E2",
+   "title": "Migration and RLS: nfc_cards, connections (with source and context), blocks, tap_events, consents",
+   "pri": "P0",
+   "role": "BE",
+   "est": 2.0,
+   "due": "2026-11-17",
+   "deps": [
+    "K-03"
+   ],
+   "ac": "All five tables have RLS on; anon key returns zero rows from each; migration reversible; connections.source holds tap, scan, coffee, circle, office_hours, table.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 2.0
+  },
+  {
+   "id": "K-21",
+   "epic": "E2",
+   "title": "Route /t/:token: states (unbound, active, revoked, unknown) and sign-in with return path",
+   "pri": "P0",
+   "role": "FE",
+   "est": 1.5,
+   "due": "2026-11-18",
+   "deps": [
+    "K-20"
+   ],
+   "ac": "Each state renders a distinct screen; sign-in returns to the same token URL.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 3.0
+  },
+  {
+   "id": "K-22",
+   "epic": "E2",
+   "title": "RPCs get_profile_by_token and connect_via_card (idempotent, undo, rate limited)",
+   "pri": "P0",
+   "role": "BE",
+   "est": 1.5,
+   "due": "2026-11-18",
+   "deps": [
+    "K-20"
+   ],
+   "ac": "Second call with same pair returns existing row; GET path writes nothing; 30 resolves per minute per user cap enforced.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 4.5
+  },
+  {
+   "id": "K-29",
+   "epic": "E2",
+   "title": "iOS spike: Safari tab vs installed PWA sign-in state, and one-tap return path",
+   "pri": "P0",
+   "role": "FE",
+   "est": 1.0,
+   "due": "2026-11-18",
+   "deps": [
+    "K-21"
+   ],
+   "ac": "Written finding with screenshots; sign-in from a tap takes at most 2 taps on iPhone.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 8.0
+  },
+  {
+   "id": "K-28",
+   "epic": "E2",
+   "title": "Connection rules: unique pair, self-tap block, source and session tagging, record_meeting() for non-tap sources",
+   "pri": "P1",
+   "role": "BE",
+   "est": 1.0,
+   "due": "2026-11-18",
+   "deps": [
+    "K-20"
+   ],
+   "ac": "Duplicate pair impossible at DB level; met_at_session filled from calendar when a session is live; record_meeting accepts only the six listed sources.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 9.5
+  },
+  {
+   "id": "K-23",
+   "epic": "E2",
+   "title": "Tap result screen: compact profile card, connect with 8 s undo, already-connected state, contact on accept",
+   "pri": "P0",
+   "role": "FE",
+   "est": 1.5,
+   "due": "2026-11-19",
+   "deps": [
+    "K-21",
+    "K-22"
+   ],
+   "ac": "Median tap to rendered profile 2.0 s or less on 4G with a warm session; contact fields stay hidden until the card owner's accept rule is met.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 4.5
+  },
+  {
+   "id": "K-24",
+   "epic": "E2",
+   "title": "Card activation: self-activate after sign-in; desk bind and unbind",
+   "pri": "P0",
+   "role": "FE",
+   "est": 1.5,
+   "due": "2026-11-19",
+   "deps": [
+    "K-20",
+    "K-21",
+    "K-32"
+   ],
+   "ac": "Unbound card tap leads to activation; printed 6-char code required; consent captured before binding; audit row written.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 2.5
+  },
+  {
+   "id": "K-25",
+   "epic": "E2",
+   "title": "QR on digital pass and share-link fallback (same /t/:token URL)",
+   "pri": "P0",
+   "role": "FE",
+   "est": 0.5,
+   "due": "2026-11-19",
+   "deps": [
+    "K-21"
+   ],
+   "ac": "QR scanned by native camera on iOS and Android opens the profile flow.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 8.5
+  },
+  {
+   "id": "K-26",
+   "epic": "E2",
+   "title": "People I've met: list in Me with search, private note, remove connection",
+   "pri": "P1",
+   "role": "FE",
+   "est": 1.0,
+   "due": "2026-11-20",
+   "deps": [
+    "K-22"
+   ],
+   "ac": "Remove deletes the edge for both sides; note visible only to its author.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 8.0
+  },
+  {
+   "id": "K-27",
+   "epic": "E2",
+   "title": "Lost or stolen card: revoke and reissue",
+   "pri": "P1",
+   "role": "BE",
+   "est": 1.0,
+   "due": "2026-11-20",
+   "deps": [
+    "K-24"
+   ],
+   "ac": "Old token shows 'deactivated'; new card binds in under 60 s at desk.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 6.0
+  },
+  {
+   "id": "K-30",
+   "epic": "E3",
+   "title": "Profile schema: headline, bio, photo, role, institute, themes (max 3), interest tags, ask and offer, visibility scope",
+   "pri": "P0",
+   "role": "BE",
+   "est": 1.5,
+   "due": "2026-11-17",
+   "deps": [
+    "K-06"
+   ],
+   "ac": "Existing registrants keep their data; new columns nullable; themes join table, ask/offer text and visibility_scope (presenters, all, met) in place.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-31",
+   "epic": "E3",
+   "title": "Profile editor in onboarding step 2: domain picker, interests, photo upload, contact fields",
+   "pri": "P0",
+   "role": "FE",
+   "est": 2.0,
+   "due": "2026-11-18",
+   "deps": [
+    "K-30"
+   ],
+   "ac": "Photo resized to 512 px client side; at most 3 domains; completion bar updates live.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 8.0
+  },
+  {
+   "id": "K-32",
+   "epic": "E3",
+   "title": "Visibility banner and settings: scope selector, share-on-tap, discoverable, versioned log, one-tap withdraw",
+   "pri": "P0",
+   "role": "FE",
+   "est": 2.0,
+   "due": "2026-11-18",
+   "deps": [
+    "K-30",
+    "K-05"
+   ],
+   "ac": "Every grant and withdrawal writes a row with version and timestamp; scope change takes effect on the next request; banner copy matches the wireframe.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-33",
+   "epic": "E3",
+   "title": "Profile detail RPC applying scope, accept and block rules",
+   "pri": "P0",
+   "role": "BE",
+   "est": 1.5,
+   "due": "2026-11-19",
+   "deps": [
+    "K-30",
+    "K-32",
+    "K-20",
+    "K-05"
+   ],
+   "ac": "Contact fields never returned to non-accepted people; blocked pairs return nothing; unit tests for every combination of scope (3), optional toggles (3) and viewer relationship (stranger, met, accepted, blocked): 96 cases.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-34",
+   "epic": "E3",
+   "title": "Profile screen per wireframe plus constellation extras (mutual, path to me, shared sessions, note, report)",
+   "pri": "P0",
+   "role": "FE",
+   "est": 3.0,
+   "due": "2026-11-23",
+   "deps": [
+    "K-33"
+   ],
+   "ac": "Matches the wireframed profile layout; adds mutual connections, path to me, shared sessions and note; used by tap, directory and constellation.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-35",
+   "epic": "E3",
+   "title": "Profile-completion nudge on Home and email to registered delegates",
+   "pri": "P1",
+   "role": "PM",
+   "est": 0.5,
+   "due": "2026-11-22",
+   "deps": [
+    "K-31"
+   ],
+   "ac": "Banner live; email sent to 100% of registered delegates by 22 Nov.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 8.0
+  },
+  {
+   "id": "K-40",
+   "epic": "E4",
+   "title": "Graph spike: d3-force on canvas with 150 synthetic nodes, measure fps",
+   "pri": "P0",
+   "role": "FE",
+   "est": 1.0,
+   "due": "2026-11-18",
+   "deps": [],
+   "ac": "At least 30 fps on a mid-range Android phone; written finding.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 5.0
+  },
+  {
+   "id": "K-47",
+   "epic": "E4",
+   "title": "Network page: add map entry points to wireframed home, lazy-loaded graph chunk",
+   "pri": "P0",
+   "role": "FE",
+   "est": 1.0,
+   "due": "2026-11-20",
+   "deps": [
+    "K-03"
+   ],
+   "ac": "Chunk loads only when the map opens; chunk is 100 kB gzipped or less; wireframed sections stay in their order.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 11.5
+  },
+  {
+   "id": "K-41",
+   "epic": "E4",
+   "title": "RPC get_ego_graph (depth 2, cap 300 nodes, scope and block rules honoured)",
+   "pri": "P0",
+   "role": "BE",
+   "est": 1.5,
+   "due": "2026-11-19",
+   "deps": [
+    "K-20",
+    "K-30",
+    "K-05"
+   ],
+   "ac": "Response p95 under 400 ms for a 150-node neighbourhood; hidden, blocked and out-of-scope users never appear.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 2.0
+  },
+  {
+   "id": "K-42",
+   "epic": "E4",
+   "title": "Constellation v1: canvas render, zoom, pan, drag, domain colours, size by degree, edge width by similarity",
+   "pri": "P0",
+   "role": "FE",
+   "est": 3.0,
+   "due": "2026-11-22",
+   "deps": [
+    "K-40",
+    "K-41"
+   ],
+   "ac": "Layout settles in 3 s or less; labels only for top-degree and hovered nodes.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 2.0
+  },
+  {
+   "id": "K-43",
+   "epic": "E4",
+   "title": "Node tap opens profile panel; neighbour highlight; path-to-me; keyboard navigation",
+   "pri": "P0",
+   "role": "FE",
+   "est": 1.0,
+   "due": "2026-11-24",
+   "deps": [
+    "K-34",
+    "K-42"
+   ],
+   "ac": "Tap target at least 44 px; Esc closes panel; focus returns to the node.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-44",
+   "epic": "E4",
+   "title": "Filters: domain chips, institute, role, met-at-session, search with fly-to",
+   "pri": "P1",
+   "role": "FE",
+   "est": 1.5,
+   "due": "2026-11-23",
+   "deps": [
+    "K-42"
+   ],
+   "ac": "Filter changes re-render in under 200 ms for 300 nodes.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 4.5
+  },
+  {
+   "id": "K-45",
+   "epic": "E4",
+   "title": "Accessible list view, reduced-motion static layout, text alternative",
+   "pri": "P1",
+   "role": "FE",
+   "est": 1.0,
+   "due": "2026-11-23",
+   "deps": [
+    "K-42"
+   ],
+   "ac": "Every node reachable by keyboard in the list; no animation when reduced motion is set.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 5.0
+  },
+  {
+   "id": "K-46",
+   "epic": "E4",
+   "title": "Empty and low-connection states",
+   "pri": "P1",
+   "role": "DS",
+   "est": 0.5,
+   "due": "2026-11-23",
+   "deps": [
+    "K-42"
+   ],
+   "ac": "Zero, one and two connection states designed and shipped.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 5.5
+  },
+  {
+   "id": "K-51",
+   "epic": "E5",
+   "title": "Domain Venn layer: anchors, translucent hulls, multi-domain nodes pulled between anchors",
+   "pri": "P0",
+   "role": "FE",
+   "est": 2.0,
+   "due": "2026-11-24",
+   "deps": [
+    "K-42"
+   ],
+   "ac": "A node tagged finance and analytics sits visibly inside the overlap of both hulls.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 2.0
+  },
+  {
+   "id": "K-53",
+   "epic": "E5",
+   "title": "RPC venn_counts(theme_ids up to 3, scope) honouring visibility scope",
+   "pri": "P1",
+   "role": "BE",
+   "est": 1.0,
+   "due": "2026-11-23",
+   "deps": [
+    "K-30",
+    "K-20",
+    "K-05"
+   ],
+   "ac": "Seven region counts sum to the number of in-scope people holding at least one selected theme.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 7.5
+  },
+  {
+   "id": "K-52",
+   "epic": "E5",
+   "title": "Venn mode: pick up to 3 domains, 7-region counts, tap a region for people list",
+   "pri": "P1",
+   "role": "FE",
+   "est": 2.0,
+   "due": "2026-11-25",
+   "deps": [
+    "K-51",
+    "K-53"
+   ],
+   "ac": "Scope toggle switches My network and Event; region list opens profile panel.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 2.0
+  },
+  {
+   "id": "K-50",
+   "epic": "E5",
+   "title": "Similarity job: weighted score, top 8 edges per person, nightly plus on profile save",
+   "pri": "P1",
+   "role": "BE",
+   "est": 2.0,
+   "due": "2026-11-22",
+   "deps": [
+    "K-30"
+   ],
+   "ac": "Score reproducible from the formula in PRD section 8; job under 60 s for 2,000 profiles.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 5.5
+  },
+  {
+   "id": "K-55",
+   "epic": "E5",
+   "title": "Suggested connections: top 10 by score among discoverable, unconnected people",
+   "pri": "P2",
+   "role": "FE",
+   "est": 1.0,
+   "due": "2026-11-25",
+   "deps": [
+    "K-50"
+   ],
+   "ac": "Never lists anyone who has not opted into discoverability.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 7.5
+  },
+  {
+   "id": "K-54",
+   "epic": "E5",
+   "title": "Event Galaxy: all discoverable delegates as a star field with kNN links",
+   "pri": "P2",
+   "role": "FE",
+   "est": 3.0,
+   "due": "2026-11-25",
+   "deps": [
+    "K-50",
+    "K-42"
+   ],
+   "ac": "2,000 nodes at 24 fps or more on a mid-range Android phone.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 3.0
+  },
+  {
+   "id": "K-60",
+   "epic": "E6",
+   "title": "Admin card console: batches, search delegate, bind, unbind, revoke, CSV export",
+   "pri": "P0",
+   "role": "FE",
+   "est": 2.0,
+   "due": "2026-11-21",
+   "deps": [
+    "K-24"
+   ],
+   "ac": "Desk volunteer binds a card to a delegate in under 30 s.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 2.5
+  },
+  {
+   "id": "K-62",
+   "epic": "E6",
+   "title": "Rate limits, abuse guard and feature kill-switch on resolve and connect RPCs",
+   "pri": "P0",
+   "role": "BE",
+   "est": 1.0,
+   "due": "2026-11-19",
+   "deps": [
+    "K-22"
+   ],
+   "ac": "Kill-switch flag disables tap and graph without a deploy.",
+   "done": false,
+   "ext": 0,
+   "status": "ready",
+   "crit": false,
+   "slack": 7.0
+  },
+  {
+   "id": "K-63",
+   "epic": "E6",
+   "title": "RLS and secrets audit: anon-key probe on every new table, no service key in client bundle",
+   "pri": "P0",
+   "role": "QA",
+   "est": 1.0,
+   "due": "2026-11-24",
+   "deps": [
+    "K-41",
+    "K-33",
+    "K-60",
+    "K-81"
+   ],
+   "ac": "Probe script returns zero rows or denial for every table; bundle grep finds no service key.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 2.5
+  },
+  {
+   "id": "K-61",
+   "epic": "E6",
+   "title": "Event metrics: taps, unique connections, completion rate, graph opens, errors",
+   "pri": "P1",
+   "role": "BE",
+   "est": 1.0,
+   "due": "2026-11-24",
+   "deps": [
+    "K-22"
+   ],
+   "ac": "Admin tile updates within 60 s of a tap.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 8.0
+  },
+  {
+   "id": "K-64",
+   "epic": "E6",
+   "title": "Data export and post-event deletion job (scheduled for 29 Dec 2026)",
+   "pri": "P1",
+   "role": "BE",
+   "est": 1.0,
+   "due": "2026-11-24",
+   "deps": [
+    "K-20"
+   ],
+   "ac": "Dry run on staging deletes all graph, consent and note rows for a test user.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 9.5
+  },
+  {
+   "id": "K-70",
+   "epic": "E7",
+   "title": "Device matrix: iPhone XS or later, iPhone 11 to 15, Pixel, Samsung, Xiaomi, NFC off, Safari vs PWA",
+   "pri": "P0",
+   "role": "QA",
+   "est": 2.0,
+   "due": "2026-11-26",
+   "deps": [
+    "K-23",
+    "K-43",
+    "K-14"
+   ],
+   "ac": "Matrix sheet complete (dev tags plus 5 pre-production cards); every P0 flow passes on at least 8 devices.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-71",
+   "epic": "E7",
+   "title": "Load test: 500 taps per minute on resolve and connect; 2,000-node graph render",
+   "pri": "P1",
+   "role": "QA",
+   "est": 1.0,
+   "due": "2026-11-24",
+   "deps": [
+    "K-22",
+    "K-41"
+   ],
+   "ac": "p95 under 800 ms at 500 taps per minute; no 5xx.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 8.0
+  },
+  {
+   "id": "K-74",
+   "epic": "E7",
+   "title": "Delegate and volunteer onboarding: 30-second how-to-tap clip, Home banner, WhatsApp text",
+   "pri": "P1",
+   "role": "DS",
+   "est": 1.0,
+   "due": "2026-11-24",
+   "deps": [
+    "K-23"
+   ],
+   "ac": "Clip under 30 s; banner live on Home.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 6.5
+  },
+  {
+   "id": "K-72",
+   "epic": "E7",
+   "title": "Feature freeze and release candidate on production",
+   "pri": "P0",
+   "role": "PM",
+   "est": 0.5,
+   "due": "2026-11-25",
+   "deps": [
+    "K-23",
+    "K-24",
+    "K-43",
+    "K-51",
+    "K-60",
+    "K-63",
+    "K-81"
+   ],
+   "ac": "RC tagged; only P0 fixes merge after this point.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 1.5
+  },
+  {
+   "id": "K-75",
+   "epic": "E7",
+   "title": "Hypercare rota for 27 to 29 Nov, incident runbook, rollback drill",
+   "pri": "P0",
+   "role": "BE",
+   "est": 1.0,
+   "due": "2026-11-26",
+   "deps": [
+    "K-72",
+    "K-62"
+   ],
+   "ac": "Rota covers 07:00 to 23:00 each day; rollback drill executed once on staging.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 1.5
+  },
+  {
+   "id": "K-73",
+   "epic": "E7",
+   "title": "On-campus UAT with 20 volunteers using dev tags and sample cards; go or no-go",
+   "pri": "P0",
+   "role": "QA",
+   "est": 1.0,
+   "due": "2026-11-26",
+   "deps": [
+    "K-72",
+    "K-70"
+   ],
+   "ac": "Go/no-go recorded in decision log with named approver.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": true,
+   "slack": 0.0
+  },
+  {
+   "id": "K-76",
+   "epic": "E7",
+   "title": "Retrospective, deletion verification, metrics report",
+   "pri": "P2",
+   "role": "PM",
+   "est": 0.5,
+   "due": "2026-12-02",
+   "deps": [
+    "K-73"
+   ],
+   "ac": "Report shared; deletion job confirmed for 29 Dec.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": null
+  },
+  {
+   "id": "K-77",
+   "epic": "E2",
+   "title": "Scan sheet: in-app QR scan and 6-char code entry for phones without background NFC",
+   "pri": "P1",
+   "role": "FE",
+   "est": 1.0,
+   "due": "2026-11-22",
+   "deps": [
+    "K-22"
+   ],
+   "ac": "Camera scan and typed code resolve to the same profile screen as an NFC tap.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 8.0
+  },
+  {
+   "id": "K-81",
+   "epic": "E6",
+   "title": "Block and report: RPCs, profile menu, admin review queue",
+   "pri": "P0",
+   "role": "BE",
+   "est": 1.0,
+   "due": "2026-11-21",
+   "deps": [
+    "K-20"
+   ],
+   "ac": "Blocked user disappears from graph, Venn and directory for both sides; report lands in the admin queue.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 7.0
+  },
+  {
+   "id": "K-79",
+   "epic": "E3",
+   "title": "Ask and offer badges on profile and node tooltip",
+   "pri": "P2",
+   "role": "FE",
+   "est": 0.5,
+   "due": "2026-11-25",
+   "deps": [
+    "K-30",
+    "K-34"
+   ],
+   "ac": "Ask and offer text appears on profile and on node hover.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 3.5
+  },
+  {
+   "id": "K-83",
+   "epic": "E7",
+   "title": "After the conference: export contacts and follow-up reminder",
+   "pri": "P1",
+   "role": "FE",
+   "est": 1.0,
+   "due": "2026-11-25",
+   "deps": [
+    "K-33"
+   ],
+   "ac": "Export includes only accepted connections; reminder scheduled for the day after the event.",
+   "done": false,
+   "ext": 0,
+   "status": "backlog",
+   "crit": false,
+   "slack": 6.0
+  }
+ ]
+}

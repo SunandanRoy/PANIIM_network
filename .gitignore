@@ -1,0 +1,12 @@
+node_modules/
+out/
+.env
+.env.*
+!.env.example
+dist-web/
+coverage/
+playwright-report/
+test-results/
+docs/design/figma/make-export/
+*.log
+.DS_Store

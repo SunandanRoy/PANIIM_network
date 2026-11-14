@@ -1,0 +1,250 @@
+You are designing a mobile-first, clickable prototype for the "Network" section of the "PAN-IIM WMC 2026" event app (an academic conference hosted at IIM Shillong, 27 to 29 November 2026, where delegates present papers). The attached images are six existing wireframe screens of the Network page. They are the source of truth for layout, tone, spacing and copy. Recreate those six screens faithfully as the base, then ADD the new features described in this and the following prompts. Do not redesign anything that exists. Do not add a new bottom-navigation tab: Network is already a page, and the new features attach to it.
+
+PRODUCT IN ONE PARAGRAPH
+Every participant gets a physical card with an NFC chip. Tapping it on another person's phone opens that person on the platform, using the same profile screen the Network page already shows, and records that the two people met. Those meetings form a graph. The Network page shows the graph two ways: a force-directed "constellation" (you, your connections, and their connections) and an "overlap" view (a Venn-style split by theme, for example Finance, Sustainability, Strategy). Tapping any dot in the constellation opens that person's detailed profile. Contact details (email, phone) stay hidden until the person accepts a request, exactly as the existing wireframe says.
+
+FRAME AND DEVICE
+- Primary frame: 390 x 844 (iPhone-class). Also design a 1280 x 800 desktop layout for the Constellation, Overlap and Profile screens only (profile becomes a right-hand side panel beside the map).
+- Light theme only. Everything must be legible at 390 px with a 16 px side gutter. No horizontal page scroll (horizontal chip rows may scroll inside their own container).
+- Minimum tap target 44 x 44 px.
+
+DESIGN LANGUAGE (match the attached wireframes; where they differ from my values below, the wireframes win)
+- Page background off-white, about #F6F6F1. White cards with a 1 px warm-grey border (about #E4E5DD) and large radii (16 px cards, 12 px inputs and small tiles, fully round chips).
+- Primary colour deep green, about #1F5C4A, for primary buttons, links and the coffee button. Pale green about #E0ECE6 for the visibility banner and "In your session" tags. Tan about #F4E8D6 with brown text about #8A4B12 for "Ask" tags and mutual-count tags. Lavender about #E6E5F4 with indigo text about #2F2F78 for interest tags. Near-black about #16191A for the active chip and the "You" node. Muted text about #6B716C.
+- Typography: a geometric grotesk for headings (Space Grotesk or the closest match to the wireframe), Inter for body. Page title 34 px bold; section titles 21 px bold; body 14 to 15 px; small text 12 to 13 px. Uppercase letter-spaced eyebrows (for example "PAN-IIM WMC 2026", "LUNCH TABLE", "OUTING", "PRESENTING", "OFFICE HOURS") at 11.5 px.
+- People without photos show initials in pastel circles (pale green, tan, lavender), for example MI, AM, SQ.
+- Plain-sentence privacy notes under actions, in muted text, with the key verb underlined (for example "Report or block").
+- Icons: simple outline icons (eye, search, scan frame, plus, crosshair/pin, coffee cup, chevron, QR).
+- Theme colours for the map and the overlap view (colour is NEVER the only cue; always pair with the theme name in a legend or label): Sustainability #1F5C4A, Finance #C9852B, Strategy & Innovation #6A66C4, Marketing #2B7A9B, Operations #B0485F, Analytics #7A8B2E, Public Policy #5B6B7A, People & Organisations #8A4F9E. These eight are my proposal; the real list will have 8 to 12 themes.
+
+MOCK DATA (use these everywhere; all counts are illustrative, label them "Illustrative" only in a small caption, not on every screen)
+- You: "Aman", PGP scholar, IIM Shillong. Themes: Finance, Strategy & Innovation. Visibility scope: "Presenters" (default).
+- Session-mates (from the wireframe): Dr. Meera Iyer, Associate Professor, Operations, IIM Kozhikode, paper "Green logistics adoption among Indian MSMEs", Sat 28 Nov 11:30, Session 3B, Room C-2, themes Sustainability + Operations. Arjun Mehta, PhD scholar, IIM Lucknow, "Carbon disclosure and the cost of capital in NSE firms", themes Finance + Sustainability. Sana Qureshi, PhD scholar, IIM Ranchi, "Circular supply chains in Northeast handloom clusters", themes Sustainability + Strategy & Innovation.
+- Others from the wireframe: Rahul Bhattacharya, IIM Calcutta, "Survey design for HR research", office hours today 16:00 at the Cafe terrace; Kavya Nair, IIM Bangalore, posted an Ask "Looking for a co-author with access to Indian MSME survey data." (3 replies).
+- Add about 20 more invented delegates for the map and overlap (generic Indian names, institutes from the IIM list, one or two themes each).
+- Network numbers: 4 direct connections, 2 coffee requests waiting, 23 people within two steps, 412 discoverable delegates at the event.
+- Overlap counts for "My network" with Sustainability, Finance, Strategy selected: Sustainability only 6, Strategy only 4, Finance only 7, Sustainability+Strategy 2, Sustainability+Finance 1, Strategy+Finance 2, all three 1. Total 23.
+
+GLOBAL RULES
+1. Never show email or phone anywhere except on a profile whose owner has accepted the viewer. A tap alone never reveals contact details (default). Show this rule in the UI copy.
+2. Every profile-related screen shows the footer: "Email and phone are shared only after [First name] accepts a request." followed by an underlined "Report or block".
+3. Use real-looking copy, no lorem ipsum. Keep the existing wireframe copy verbatim wherever it appears.
+4. This is a prototype: make interactions clickable (tabs, sheets, chips, nodes, toggles, the 8-second undo countdown). Use mock data only. No external API calls, no keys, no live camera or NFC access; simulate the scan and the tap with buttons labelled "Simulate tap" and "Simulate scan" on a small hidden-by-default "Prototype controls" drawer.
+5. Build each screen as its own component or route so I can iterate screen by screen. Name layers clearly.
+
+NAVIGATION MAP
+Network home -> (QR icon) My pass; (Scan a pass) Scan sheet; (map preview or Map button) Constellation <-> Overlap; (person row, node, region row, tap result) Profile; (Edit on the visibility banner) Visibility sheet; (My connections row) Connections list; (Request a 15-min coffee) New request (existing wireframe); (tap on a card) Tap landing states.
+
+BUILD ORDER
+Build everything in this one prompt in the order of the numbered SCREEN sections below. Sections 1 to 6 reproduce the six existing wireframe screens exactly as attached (Network home, Profile for Dr. Meera Iyer, New request "Coffee with Meera", Asks and offers, Tables/circles/outings, Connections and follow-up with the "After the conference" box; for the clipped second button in that box use the placeholder label "Email me a digest"). Sections 7 to 15 are the new features. Keep each screen a separate route or component. Wire all the links in the NAVIGATION MAP so the whole thing is one connected clickable prototype.
+
+=====================================
+SCREENS 1 TO 6: EXISTING WIREFRAMES (reproduce from the attachments)
+=====================================
+Reproduce the six attached screens faithfully: 1 Network home, 2 Profile (Dr. Meera Iyer), 3 New request, 4 Asks and offers, 5 Tables/circles/outings, 6 Connections and follow-up. Keep all copy verbatim. Screen 7 below modifies screen 1; screens 10 and 14 extend screens 2 and 6.
+
+=====================================
+SCREEN 7: NETWORK HOME ADDITIONS (modifies screen 1)
+=====================================
+On the existing Network home screen, keep every section and its order exactly as it is. Make these four additions and nothing else. Mark each addition with a small orange numbered dot ONLY in a separate annotated copy of the frame (leave the real screen clean).
+
+1. MY PASS. The unlabelled QR icon button in the top-right corner (44 x 44, white, rounded) opens the "My pass" screen (SCREEN 8). Add a tiny green dot on the icon when the card is not yet activated.
+
+2. VISIBILITY BANNER. Keep the pale-green banner with the eye icon and the underlined "Edit" link. Its text changes with the visibility scope: "You're visible to other presenters. Contact details stay hidden until you accept." (default); "You're visible to all delegates. Contact details stay hidden until you accept."; "You're visible only to people you've met. Contact details stay hidden until you accept." Tapping "Edit" opens the Visibility sheet (SCREEN 13). Make all three text states viewable via the prototype controls.
+
+3. NETWORK MAP PREVIEW CARD. Insert a new white card between the three quick-action tiles (Scan a pass, Post an ask, Join a table) and "Your session-mates". Title "Your network map" (19 px bold) on the left, underlined green link "Open full map" on the right. Subtitle in muted text: "4 connections, 23 people within two steps". Below it a 150 px tall static preview of the constellation: a near-black "You" node in the centre, four larger theme-coloured nodes around it, small second-degree nodes attached, thin grey lines. Beneath it three small legend chips with a coloured dot and the theme name (Sustainability, Finance, Strategy). The whole card is tappable and opens the Constellation screen. Design its empty variant too: if the person has 0 connections, replace the graph with a dotted-outline placeholder, the text "Your map starts with your first tap or scan", and two buttons "Scan a pass" and "Show my pass".
+
+4. MAP BUTTON ON THE CONNECTIONS ROW. In the existing "My connections" card (three overlapping initials avatars MI AM SQ, "4 connections", "2 coffee requests waiting", chevron), add a small outlined green "Map" button on the right before the chevron. Tapping the row still opens the connections list; tapping "Map" opens the Constellation.
+
+Also add: a profile-completion banner (pale tan) at the very top of the page, shown only when the profile is under 100 percent complete: "Your profile is 60% complete. A fuller profile helps people find you." with a thin progress bar and the underlined link "Finish profile" (opens Profile editor, SCREEN 14A). Make it dismissible.
+
+Also design the "no session today" state of the "Your session-mates" section: heading stays, body text "No session matched yet. Star sessions in the programme and your session-mates appear here."
+
+Deliver: the updated Network home at 390 x 844 (scrollable), plus its annotated copy, plus the three variants (banner text states) and the empty map-card variant.
+
+=====================================
+SCREENS 8A AND 8B: MY PASS, AND SCAN A PASS
+=====================================
+8A) MY PASS (opened from the QR icon on Network home). Full-screen with a back arrow and the title "My pass".
+- A large pass card, 16 px radius, white, showing: initials avatar, name, institute, role, the visibility scope as a small chip ("Visible to presenters"), and a large QR code (use a placeholder QR) of the same link that is written on the NFC card.
+- Under the QR: "Hold the back of your card to someone's phone, or let them scan this code." and a status chip: "Card active" (green), "Card not activated" (amber), or "Card replaced" (grey). Show all three states.
+- Below the QR: the 6-character code on the back of the card in big letter-spaced type (example: K7QX2M), label "CODE ON BACK OF YOUR CARD".
+- Buttons: primary "Share my link" (copies a link; show a "Link copied" toast), secondary "Report card lost" (opens a confirmation sheet: "Your card stops working straight away. A desk volunteer can give you a new one in under a minute." with buttons "Report lost" and "Cancel"; after confirming the status becomes "Card replaced" and a banner says "Go to the help desk for a new card").
+- Footer line: "Your name, institute, role, photo and themes are visible to the people you choose. Email and phone are shared only after you accept a request."
+
+8B) SCAN A PASS (opened from the "Scan a pass" quick action). A bottom sheet over Network home with two tabs: "Scan" and "Enter code".
+- Scan tab: a camera viewfinder placeholder with square corner marks, instruction "Point your camera at the QR code on the card", a torch icon button, and a note "No camera access? Use Enter code."
+- Enter code tab: six individual boxes for the 6-character code, helper text "The code is printed on the back of the card", primary button "Find person".
+- Error states: "We couldn't read this pass. Try again or ask the help desk." and "That code isn't active."
+- On success both tabs go to the Tap result screen (SCREEN 9). Add a "Simulate scan" button in the prototype controls.
+
+=====================================
+SCREEN 9: TAP LANDING, EVERY STATE
+=====================================
+When a delegate taps someone's NFC card, their phone opens a web page on the platform. Design every state of this "Tap landing" page at 390 x 844. A tap never changes anything by itself: the connection is created only after the screen has rendered.
+
+1) SIGNED OUT. Event mark, headline "Sign in to see who you met", short text "You tapped a Pan-IIM pass.", buttons "Continue with Google" and "Email me a code". After sign-in the user returns to the same person (show a thin progress note "Taking you back to the pass you tapped"). Keep sign-in to two taps.
+
+2) ACTIVE CARD, FIRST TAP (hero state). Eyebrow "PAN-IIM WMC 2026 - YOU TAPPED A PASS". One white card: large initials avatar (64 px), name "Dr. Meera Iyer" 22 px bold, "Associate Professor, Operations - IIM Kozhikode", tag row "In your session - 3B" (pale green) and "3 mutual connections" (tan), then "Presenting" with the paper title, "Sat 28 Nov, 11:30 - Room C-2", then three lavender interest chips. Below the card a dark toast bar: check icon, "Connected with Meera", underlined green "Undo", with a thin progress bar that drains over 8 seconds; when it ends the toast fades and a small "Connected" badge appears on the card. Tapping Undo removes the connection, shows "Removed. Meera was not told." and changes the page to the "not connected" version. Then primary button "Request a 15-min coffee", two outlined buttons "Full profile" and "Show on map", and the footer privacy line with "Report or block".
+
+3) ALREADY CONNECTED. Same card, a green "Connected" badge, no toast, buttons "Request a 15-min coffee" (or "Coffee requested" disabled if pending), "Full profile", "Show on map".
+
+4) SHARE-ON-TAP VARIANT (prototype toggle). Same as state 2 but the card also shows "Email: meera.iyer@..." and "Phone" rows with a small "Shared because Meera allows it" caption. This variant exists only for when the owner has switched on "Share contact on tap" (default OFF). Do not show it by default.
+
+5) UNBOUND CARD (this physical card is not linked to anyone yet): headline "Activate your pass", text "This card isn't linked to anyone yet. Enter the 6-character code printed on the back to link it to you.", a code card showing the code in large letter-spaced type, a pale-green panel "You choose who can see you" with the text "Presenters only, all delegates, or only people you've met. Contact details stay hidden until you accept.", a three-option scope selector (radio cards), and primary button "Link this pass to me". After success: a confirmation with a check, "Your pass is active", and buttons "Open my pass" and "Go to Network".
+
+6) REVOKED CARD: "This pass was replaced. Ask the help desk." with a "Scan a pass" button. No profile.
+
+7) UNKNOWN CARD: "We couldn't read this pass." with "Scan a pass" and "Back to Network". Blocked (either direction) must look identical to this unknown state, because neither side should learn the other blocked.
+
+8) OFFLINE OR SLOW: skeleton loading for the card, then a retry banner "Weak signal. We'll connect you as soon as it's back." (the connection is queued locally).
+
+Add a state switcher in the prototype controls to jump between all eight.
+
+=====================================
+SCREEN 10: PROFILE (extends screen 2)
+=====================================
+Build the single Profile screen used by every entry point: tap result "Full profile", search results, session-mates, the connections list, a region row in the overlap view, and a node in the constellation. On mobile it is a full screen with a back arrow. On desktop (1280 wide) it is a 420 px right-hand side panel next to the map.
+
+BASE LAYOUT: reproduce the attached wireframe profile exactly (top to bottom): initials avatar; name; role line "Associate Professor, Operations - IIM Kozhikode"; tag "In your session - 3B"; primary green button "Request a 15-min coffee"; a row of three outlined buttons "Follow", "Ask a question", "Save"; the PRESENTING block (paper title "Green logistics adoption among Indian MSMEs", "Sat 28 Nov, 11:30 - Sustainability - Session 3B", "Room C-2 - Show on map" link); a "Key finding, in one line" box (placeholder "[Presenter's one-line takeaway from the paper goes here.]"); buttons "Read abstract" and "Download slides (PDF)"; "Ask me about" chips (Green logistics, MSME operations, Structural equation modelling, Field surveys, Last-mile delivery); "Open to" chips (Co-authoring, Mentoring PhDs, Industry projects, Reviewing drafts); an OFFICE HOURS card "Today, 17:30-18:00 - Library lawn" with "Publishing in logistics journals" and a "Join" button; and the footer "Email and phone are shared only after Meera accepts a request. Report or block".
+
+NEW BLOCK, placed directly under the header buttons (so the wireframed content keeps its order below it), titled "How you're connected":
+- Mutual connections: overlapping avatars plus "Arjun, Sana and 1 other" (shows only a count, "3 mutual connections", if the others' visibility does not allow names).
+- Path to you: a horizontal chain of avatars "You - Arjun - Sana - Meera" with each name tappable to open that profile; shows "No path within two steps" when none; hidden if the path would pass through someone whose visibility does not allow it.
+- Shared sessions: "You both starred: Green finance panel (Fri 27 Nov, 15:45); Session 3B (Sat 28 Nov)".
+- Where you met: a small line "Met by tapping cards at Session 3B, Sat 28 Nov, 11:42" (only if connected).
+- Private note: a text field "Only you can see this" with auto-save and a small lock icon.
+- Ask and offer badge: if the person has posted one, a small tan "Ask" or pale-green "Offer" chip with the text (example: Offer: "Happy to share my validated survey instrument on employee engagement.").
+
+CONTACT STATES (three, switchable in prototype controls):
+- Hidden: a locked row "Email and phone are shared only after Meera accepts a request." with the lock icon. No values visible.
+- Requested: button becomes disabled "Coffee requested" with text "Waiting for Meera to respond."
+- Accepted: a "Contact" card appears showing email, phone and LinkedIn rows, but ONLY the fields Meera made available (default email only); each row has a copy button; caption "Shared because Meera accepted your request."
+
+CONNECTION STATES: Not connected / Connected / Followed. Buttons change accordingly ("Connected" check badge, "Following").
+
+MORE MENU (three-dot icon top-right): "Remove connection" (confirmation sheet: "Remove Meera from your connections? She won't be notified."), "Block", "Report". Block opens a sheet: "Block Meera? You won't see each other in the map, search or suggestions. She isn't told." with "Block" and "Cancel"; after blocking, go back to Network home. Report opens a sheet with reasons (Spam or unwanted contact, Inappropriate content, Impersonation, Something else), an optional text box and "Send report", then a confirmation "Thanks. The organizers will review this."
+
+Also design: profile of a person who has set visibility to "only people I've met" when viewed by a stranger (the person must not appear at all: show the "unknown" state, not a locked profile); and a profile with a very long name and long paper title to test wrapping.
+
+=====================================
+SCREEN 11: CONSTELLATION MAP (core feature)
+=====================================
+Build the CONSTELLATION screen, opened from the map preview card, the "Map" button on the connections row, "Show on map" on a profile, and "Open full map". Use the force-directed node-link look of a constellation or similarity map (reference for feel only: cinemetrica.net tenet-2020 style, dark-on-light here). Implement it with a real small force simulation (for example d3-force on SVG or canvas) using the mock data, with a fixed random seed so the layout is repeatable, and pre-settle it for about 3 seconds before the first paint so nothing visibly scrambles.
+
+PAGE STRUCTURE (390 x 844):
+- Top: eyebrow "NETWORK", title "Your map" (26 px), outlined "Close" button at right.
+- Segmented control: "Constellation" (active) | "Overlap" (SCREEN 12). Both share one page and one filter state.
+- Theme chips row (horizontal scroll): "All themes" (near-black when active), then one chip per theme with a coloured dot. Tapping a chip filters and dims non-matching nodes to 15% opacity (keep edges to dimmed nodes at 8%). Multiple chips can be active.
+- Depth toggle chip pair at the top-left of the canvas: "2 steps" (default) and "1 step". Zoom + and - buttons at the top-right of the canvas. A small caption at the bottom-left of the canvas: "Size = connections - Line = similarity".
+- Canvas: about 430 px tall, rounded 16 px card with a very light background (#FBFBF8).
+- Below the canvas: a "peek card" showing the selected person (avatar, name, "Faculty - IIM Kozhikode - 3 mutual", green "Open" button). It is empty ("Tap a dot to see who it is") until a node is selected.
+
+NODES AND EDGES
+- "You" is a near-black circle with white text "You", slightly larger, near the centre.
+- Direct connections (4): large circles (radius 11 to 15 px depending on number of connections), filled with the person's FIRST theme colour. Show their initials or first name as a label beneath.
+- Second-degree people (about 19): smaller circles (radius 4 to 8), same colour logic, lighter; labels only for the top few by connection count, and for any hovered or selected node.
+- A person with two themes gets a small inner dot in the second theme colour. A third theme appears only in the profile.
+- Edges: solid grey lines. Width encodes similarity (0.8 to 2.4 px). Edges to second-degree nodes are lighter and thinner.
+- Soft translucent HULLS behind each theme group (rounded blobs, about 9% fill and a dashed border at 35% of the theme colour). People with two themes sit where hulls overlap.
+- Layout forces to mimic: links pull friends together with a target distance of 40 + 120 x (1 - similarity) px; nodes repel each other; a gentle radial force keeps direct connections near the centre and second-degree people on an outer ring; a pull toward theme anchors makes the hulls; collision radius so labels do not overlap. Hard cap of 300 nodes (show a muted note "Showing the 300 closest people" if a very large demo is toggled in the prototype controls).
+
+INTERACTION
+- Pinch or scroll to zoom, drag background to pan, drag a node to pin it (pinned nodes get a tiny pin glyph).
+- Tap a node: it gets a thick near-black ring and a halo, its neighbours stay at full opacity and everything else dims to 25%, the shortest path from "You" to the node is drawn as a thicker green line with small arrowless chevrons, and the peek card fills. Tapping the peek card's "Open" (or double-tapping the node) opens the Profile screen (SCREEN 10); closing the profile returns focus to the same node. Tapping the empty canvas clears the selection.
+- Search: a magnifier button on the canvas opens an inline search field "Find someone in your map"; choosing a result flies the camera to that node with a smooth 400 ms animation and selects it.
+- Filters sheet (button "Filter" next to the theme chips): sections Institute (multi-select list), Role (Faculty, PhD scholar, Industry, Student), Session (list of sessions, "Met in session..."), each with "Apply" and "Clear".
+- Keyboard and accessibility: nodes are focusable in order of connection count; arrow keys move to the nearest neighbour; Enter opens the profile; Esc closes the profile and returns focus to the node. Provide a "List view" toggle (top-right of the canvas, icon of three lines) that swaps the canvas for an accessible list of the same people with the same filters, sorted by closeness, each row with theme dot, name, institute, "Direct" or "Via Arjun". Respect reduced motion: provide a prototype toggle "Reduce motion" that shows a static, already-settled layout with no animation.
+
+STATES (design every one)
+- Loading: pulsing placeholder dots while the layout settles ("Arranging your map...").
+- Zero connections: centred "You" node alone, text "Your map starts with your first tap or scan.", buttons "Scan a pass" and "Show my pass".
+- One connection and two connections: sparse maps with extra whitespace and a gentle hint "Meet more people to grow your map".
+- Rich map: the default with 23 people.
+- Filter active with no results: "No one in your map matches these filters." with "Clear filters".
+- Blocked or hidden people never appear (no placeholder, no gap).
+- Error: "The map couldn't load. Showing your list instead." with the list view.
+
+DESKTOP (1280 x 800): map fills the left two thirds, the Profile panel opens on the right at 420 px, theme chips and filters in a left rail or top bar, hover shows a tooltip with name, institute, themes and any ask or offer text.
+
+Add a legend popover ("What do the colours mean?") listing each theme with its colour and a line "Colour shows the person's first theme. A small inner dot shows a second theme."
+
+=====================================
+SCREEN 12: OVERLAP VIEW
+=====================================
+Build the OVERLAP screen: the second tab of the segmented control on the Map page ("Constellation" | "Overlap"). It shows how people in the network divide by theme, as a Venn diagram.
+
+LAYOUT (390 x 844)
+- Same header as the Constellation tab (eyebrow NETWORK, title "Your map", Close button, segmented control with "Overlap" active).
+- Label "Pick up to 3 themes". Below it a row of selectable theme chips; selected chips use the theme's pale fill, a coloured border, a dot and a check ("Sustainability ✓", "Finance ✓", "Strategy ✓"). When three are selected, the remaining chips become disabled and tapping one shows an inline note: "Three themes is the maximum. Remove one to pick another."
+- Scope toggle (segmented): "My network - 23" | "Event - 412". My network counts people in your graph; Event counts every discoverable delegate.
+- The diagram: three overlapping circles (about 185 px radius at 354 px width; two on top, one below, like a classic Venn) filled with the theme colours at about 22 to 25% opacity with 1 px borders in the theme colour. Seven numbered regions: Sustainability only 6, Strategy only 4, Finance only 7, Sustainability + Strategy 2, Sustainability + Finance 1, Strategy + Finance 2, all three 1. Region numbers are 20 to 24 px bold; the three single-theme regions carry a small theme-name label. Selecting a region draws a 2.5 px near-black ring around it.
+- With only two themes selected, draw a two-circle Venn (three regions). With one theme, a single circle with the count. With none, a prompt "Pick a theme to see who's in it."
+- Below the diagram, a white card listing the people in the selected region. Header in uppercase small type: "ALL THREE - 1 PERSON". Each row: avatar, name, "IIM Kozhikode - Green logistics", green "View" link; tapping opens the Profile (SCREEN 10). Default selection: the "all three" region. If the region has more than 5 people, show "See all 12" which opens the full list. If it has none: "No one here yet."
+- A muted footnote: "Counts include only people whose visibility settings let you see them. Region counts add up to 23, everyone in your network with at least one selected theme."
+- Switching scope animates the numbers and updates the footnote (Event scope: 412 total, with plausible counts that sum correctly).
+
+WHY ONLY THREE THEMES: show a small "Why three?" info link that opens a tooltip: "Three themes make seven regions. More would not stay readable on a phone."
+
+STATES: loading skeleton for the circles and numbers; scope switch in progress; a person with hidden visibility never counted; error "Counts couldn't load. Try again."
+
+DESKTOP: diagram on the left, region people list on the right, theme chips above.
+
+Also keep the theme chip selection in sync with the Constellation tab: selecting themes in one tab filters the other, and show this with a tiny "Filters shared with Constellation" caption.
+
+=====================================
+SCREEN 13: VISIBILITY AND CONSENT SHEET
+=====================================
+Build the VISIBILITY SHEET opened from "Edit" on the banner on Network home. It is a bottom sheet (tall, 85 percent) with the title "Who can see you".
+
+SECTION 1: "Who can see you" (radio cards, one selected):
+- "Presenters" (default): "Other delegates with a paper on the programme can find you."
+- "All delegates": "Anyone registered for the event can find you."
+- "People I've met": "Only people you've tapped or scanned, or who you've accepted, can see you at all."
+Under the group, helper text: "You can change this any time. It takes effect on the next screen anyone opens."
+
+SECTION 2: three optional toggles, all default OFF, each with a one-line explanation:
+- "Share my contact when someone taps my card" (explanation: "Skips the accept step for the contact details you choose below.")
+- "Show me to friends of friends" (explanation: "People two steps away can see you as a dot in their map.")
+- "List me in event-wide views" (explanation: "You appear in the Event overlap counts, suggestions and the Event galaxy.")
+
+SECTION 3: "Contact details I can share after accepting": checkboxes Email (checked by default), Phone, LinkedIn, each showing the value from the profile (masked, for example "a***@iimshillong.ac.in"). Caption: "Only the ones you tick are ever shown, and only to people you accept."
+
+SECTION 4: a plain-language summary card that updates live: "Right now: delegates with a paper can see your name, institute, role, photo and themes. Nobody sees your contact details until you accept them."
+
+SECTION 5: "Your consent history" collapsed list (date, change, version), and a destructive text button "Withdraw all and remove me from the network", which opens a confirmation: "This removes your card link, your connections and your notes for everyone. You can set it up again later." with "Withdraw" and "Cancel". Footer: "Your network data is deleted on 29 Dec 2026."
+
+Save behaviour: changes apply instantly with a small "Saved" confirmation; no Save button. Update the banner text on Network home live. Design the three states of the banner and the sheet at 390 px, plus a desktop modal at 560 px wide.
+
+=====================================
+SCREENS 14A TO 14D: PROFILE EDITOR, CONNECTIONS LIST, AFTER THE CONFERENCE, NOTES
+=====================================
+14A) PROFILE EDITOR (onboarding step 2, also reachable from "Finish profile" and from Me). Fields: photo upload with circular crop and the caption "We resize it to 512 px"; headline (max 80 characters, counter); short bio (max 280, counter); role (Faculty, PhD scholar, Industry, Student); institute (search list of IIMs and others); THEMES: choose up to 3 from the eight theme chips, the first chosen is marked "Primary" with a star and sets the node colour on the map; INTEREST TAGS (type and add, chips with an x, suggestions underneath); "Ask me about" and "Open to" (same chips as the profile); ASK and OFFER (two short text boxes, 140 characters each: "Something you're looking for" and "Something you can share"); contact fields (email, phone, LinkedIn). A live completion bar at the top that goes from 0 to 100 percent as fields fill in (for example 60 percent shown). Primary button "Save and continue". Show validation: "Pick at most 3 themes".
+
+14B) MY CONNECTIONS LIST (opened from the "My connections" row). Title "My connections", a search field "Search your connections", a segmented filter "All - Coffee requests (2) - Following". Each row: avatar, name, institute, a small source chip ("Tapped at Session 3B", "Scanned", "Coffee accepted"), date, and a chevron. Swipe left reveals "Remove". Tapping a row opens the Profile. A "Coffee requests waiting" section at the top with two incoming requests, each with "Accept" and "Decline" buttons and the reason chip the sender chose; accepting reveals a toast "Meera can now see your email" and moves the person to the list. Empty state: "No connections yet. Tap a card or scan a pass to meet someone." with a "Scan a pass" button.
+
+14C) AFTER THE CONFERENCE box (inside My connections, as in the wireframe): pale-green card titled "After the conference", text "Take your contacts with you, and get a reminder to follow up.", two outlined buttons. "Export contacts" opens a sheet: "Export 4 connections", a list of what is included ("Name, institute, role and the contact details people shared with you"), a note "People who haven't accepted you are not included", format choices (CSV, vCard) and the button "Download". The second button (label clipped in the wireframe; use "Remind me to follow up") opens a date chooser defaulting to the day after the event, 30 Nov 2026, 10:00, and shows "We'll remind you on Mon 30 Nov."
+
+14D) NOTES: a per-person private note field appears on the profile and is listed in the connections list as a small paperclip icon when present.
+
+=====================================
+SCREENS 15A TO 15C: DESK CONSOLE, CARD ARTWORK, OPTIONAL EXTRAS
+=====================================
+15A) HELP-DESK CONSOLE (staff only, web, 1280 x 800 and tablet 820 x 1180). Sign-in shows "Staff access". Layout: left sidebar (Cards, Delegates, Reports, Metrics), top search. 
+- CARDS: table with columns Printed code, Status (Unbound, Active, Revoked), Bound to, Batch, Last tapped; row actions "Bind...", "Unbind", "Revoke"; filters by status and batch; a batch summary strip ("550 cards: 12 unbound, 521 active, 4 revoked, 13 spares"); a button "Export CSV".
+- BIND FLOW (the 30-second flow): search a delegate by name or email, choose the result, enter or scan the 6-character code, confirm "Link K7QX2M to Meera Iyer?", success toast "Linked. Her pass is live." and an audit line "Bound by Volunteer 4 at 10:42". Unbind and revoke show a confirmation and write an audit line. Include a "Lost card" shortcut: find the delegate, one click "Revoke old card and bind a spare".
+- DELEGATES: searchable list with activation status and profile completion.
+- REPORTS: queue of reports from the profile screen (reason, reporter, reported, time, status Open or Resolved), with actions "Dismiss", "Warn", "Hide profile".
+- METRICS TILE ROW: taps today, unique connections, activations, profile completion percent, map opens, errors in the last hour; each tile with a small sparkline.
+- A red "Kill switch" panel with two toggles "Pause tap" and "Pause map", each requiring a confirmation: "This turns the feature off for everyone straight away."
+
+15B) PHYSICAL CARD ARTWORK (CR80, 85.6 x 54 mm). Front: event mark and "PAN-IIM WMC 2026" in deep green on off-white, a clean NFC tap symbol (concentric arcs with a phone outline) and the words "Tap to connect". Back: a QR code (placeholder), the 6-character code in large letter-spaced type with the label "ACTIVATION CODE", and a one-line instruction "Tap here to a phone, or scan the code. Visit paniim.planos.in". Include a version with a name line ("Pre-printed name") as the alternative. Show both sides as flat mockups, plus a phone-and-card interaction illustration.
+
+15C) OPTIONAL (lowest priority, design last): 
+- EVENT GALAXY: a full-screen star-field of all discoverable delegates (hundreds of tiny dots coloured by first theme, faint links to nearest five), pan and zoom, tapping a dot opens the peek card; a search box; a theme legend. Cinemetrica-style feel.
+- SUGGESTED CONNECTIONS: a horizontal carousel "People you may want to meet" with up to 10 cards, each with avatar, name, institute, "Both in Finance and Sustainability" and a "View" button; never lists anyone who isn't discoverable.
+
+=====================================
+FINAL CHECK
+=====================================
+Before finishing, make sure every one of these exists and is reachable by clicking: Network home with the four additions and three banner states; My pass (three card states) and Scan a pass (scan and code tabs); all eight tap-landing states; the full profile with the new "How you're connected" block, three contact states, remove, block and report; the constellation with theme chips, hulls, depth toggle, zoom, search fly-to, filters, list view, peek card, path highlight, all empty/loading/error states and the desktop side panel; the overlap view with three themes, seven regions, scope toggle, region list and the 'why three' tooltip; the visibility sheet; the profile editor, connections list, export and reminder; the desk console, card artwork, Event Galaxy and suggested connections. Use mock data only.
