@@ -16,7 +16,8 @@ export { default as TapScreen } from "./screens/TapScreen";
 export { default as ProfileScreen } from "./screens/ProfileScreen";
 export { default as VisibilityScreen } from "./screens/VisibilityScreen"; // also used by the banner sheet
 
-function withSuspense<P extends object>(C: ComponentType<P>): ComponentType<P> {
+// Returns a plain function component (TanStack's RouteComponent rejects class components).
+function withSuspense<P extends object>(C: ComponentType<P>) {
   const Wrapped = (props: P) => (
     <Suspense fallback={<div className="mx-auto max-w-xl p-4"><Skeleton className="h-64" /></div>}>
       <C {...props} />

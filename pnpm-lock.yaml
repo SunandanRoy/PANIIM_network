@@ -11,9 +11,6 @@ importers:
       d3-force:
         specifier: 3.0.0
         version: 3.0.0
-      d3-quadtree:
-        specifier: 3.0.1
-        version: 3.0.1
       jsqr:
         specifier: 1.4.0
         version: 1.4.0
@@ -42,9 +39,6 @@ importers:
       '@types/d3-force':
         specifier: 3.0.10
         version: 3.0.10
-      '@types/d3-quadtree':
-        specifier: 3.0.6
-        version: 3.0.6
       '@types/node':
         specifier: 22.10.1
         version: 22.10.1
@@ -656,9 +650,6 @@ packages:
 
   '@types/d3-force@3.0.10':
     resolution: {integrity: sha512-ZYeSaCF3p73RdOKcjj+swRlZfnYpK1EbaDiYICEEp5Q6sUiqFaFQ9qgoshp5CzIyyb/yD09kD9o2zEltCexlgw==}
-
-  '@types/d3-quadtree@3.0.6':
-    resolution: {integrity: sha512-oUzyO1/Zm6rsxKRHA1vH0NEDG58HrT5icx/azi9MF1TWdtttWl0UIUsjEQBBh+SIkrpd21ZjEv7ptxWys1ncsg==}
 
   '@types/estree@1.0.10':
     resolution: {integrity: sha512-lTyOMnOcmRBzdCv6/4zUZCrEhV0xrqQiUZBZtVcbmLHBXKLnN8q89v/wKRF/Q0HbwVsqbIG3o5HDoFl9sduM+g==}
@@ -2440,8 +2431,6 @@ snapshots:
       '@babel/types': 7.29.14
 
   '@types/d3-force@3.0.10': {}
-
-  '@types/d3-quadtree@3.0.6': {}
 
   '@types/estree@1.0.10': {}
 

@@ -72,7 +72,7 @@ export default function MapScreen({ focusId, initialView = "constellation" }: Ma
           <Button variant="outline" onClick={() => adapter.navigate(adapter.networkHomePath)}>Close</Button>
         </div>
         <div className="mt-4">
-          <Segmented label="Map view" value={view} onChange={setView} options={[{ value: "constellation", label: "Constellation" }, { value: "overlap", label: "Overlap" }]} />
+          <Segmented<"constellation" | "overlap"> label="Map view" value={view} onChange={setView} options={[{ value: "constellation", label: "Constellation" }, { value: "overlap", label: "Overlap" }]} />
         </div>
 
         {!ready || graph.loading || themes.loading ? (

@@ -49,7 +49,7 @@ export function Overlap({ themes, selected, onSelectedChange, onOpen }: {
         </div>
       </div>
       {chosen.length > 0 && (
-        <Segmented
+        <Segmented<OverlapScope>
           label="Count people in"
           value={scope}
           onChange={setScope}

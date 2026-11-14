@@ -25,7 +25,7 @@ export default function DeskScreen() {
     <main className={`${ui.page} max-w-3xl`}>
       <h1 className={ui.h1}>Desk console</h1>
       <div className="mt-4">
-        <Segmented label="Desk sections" value={tab} onChange={setTab} options={[
+        <Segmented<Tab> label="Desk sections" value={tab} onChange={setTab} options={[
           { value: "bind", label: "Bind" }, { value: "cards", label: "Cards" }, { value: "reports", label: "Reports" }, { value: "metrics", label: "Metrics" },
         ]} />
       </div>
