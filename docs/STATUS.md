@@ -20,7 +20,7 @@ Summary: Cut 1, Done 40, Not software 13, Not started 1, Partial 4, Pending 1.
 | K-14 | P1 | Vendor pre-production sample: 5 encoded cards air-shipped | Not software | Vendor samples. |
 | K-15 | P0 | Goods-in check: count, read-test 10% sample, quarantine failures | Not software | Procedure in ADMIN_RUNBOOK section 3. |
 | K-16 | P1 | Desk kit: signage, volunteer script, spare cards, NFC-capable test phones | Not software | Desk script in ADMIN_RUNBOOK section 4. |
-| K-20 | P0 | Migration and RLS: nfc_cards, connections (with source and context), blocks, tap_events, consents | Done | 19 `net_` tables, RLS on, zero policies, no grants; reversible (uninstall test). `supabase/tests/10_rls_grants.sql`, RLS probe 136/136. |
+| K-20 | P0 | Migration and RLS: nfc_cards, connections (with source and context), blocks, tap_events, consents | Done | 19 `net_` tables, RLS on, zero policies, no grants; reversible (uninstall test). `supabase/tests/10_rls_grants.sql`, RLS probe 137/137. |
 | K-21 | P0 | Route /t/:token: states (unbound, active, revoked, unknown) and sign-in with return path | Done | All tap states render distinct screens; sign-in returns to same URL. Vitest T1/T8/T9/T19, Playwright T1/T8/T9. |
 | K-22 | P0 | RPCs get_profile_by_token and connect_via_card (idempotent, undo, rate limited) | Done | Idempotent connect, GET writes nothing, 30/min cap. SQL behaviour test (K-22 assertions), Playwright T2-T5. |
 | K-29 | P0 | iOS spike: Safari tab vs installed PWA sign-in state, and one-tap return path | Partial | Return path implemented (requireAuth(returnTo) + sessionStorage fallback). The iOS Safari vs PWA spike needs real iPhones. |
@@ -52,7 +52,7 @@ Summary: Cut 1, Done 40, Not software 13, Not started 1, Partial 4, Pending 1.
 | K-54 | P2 | Event Galaxy: all discoverable delegates as a star field with kNN links | Cut (P2) | Cut-order step 1. `galaxy` flag reserved, default off. |
 | K-60 | P0 | Admin card console: batches, search delegate, bind, unbind, revoke, CSV export | Done | Desk console: search, bind, unbind, revoke, lost-card swap, batches, CSV export, import. Playwright T18. 30 s bind is a desk rehearsal. |
 | K-62 | P0 | Rate limits, abuse guard and feature kill-switch on resolve and connect RPCs | Done | Rate limits (resolve 60/min/IP, profile 30/min, connect 60/min, activation 10 wrong/h); kill switch (admin only). SQL + Playwright T19. |
-| K-63 | P0 | RLS and secrets audit: anon-key probe on every new table, no service key in client bundle | Done | `tools/rls-probe` 136/136 locally (mutation-tested); bundle grep finds no service key; secret scan + gitleaks in CI. **Must be re-run against the real project.** |
+| K-63 | P0 | RLS and secrets audit: anon-key probe on every new table, no service key in client bundle | Done | `tools/rls-probe` 137/137 locally (mutation-tested); bundle grep finds no service key; secret scan + gitleaks in CI. **Must be re-run against the real project.** |
 | K-61 | P1 | Event metrics: taps, unique connections, completion rate, graph opens, errors | Done | Metrics tile, refresh 30 s. |
 | K-64 | P1 | Data export and post-event deletion job (scheduled for 29 Dec 2026) | Done | Export + `net_retention_delete` with dry run and date guard. SQL test. Staging dry run is an ops task. |
 | K-70 | P0 | Device matrix: iPhone XS or later, iPhone 11 to 15, Pixel, Samsung, Xiaomi, NFC off, Safari vs PWA | Not software | Device matrix template: `docs/DEVICE_MATRIX.md`. |

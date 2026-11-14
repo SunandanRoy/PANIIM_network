@@ -92,7 +92,7 @@ From this repo, run the RLS probe against the real project using the **anon key 
 node tools/rls-probe/probe.mjs --url https://<project>.supabase.co --anon-key <anon key>
 ```
 
-It must end with `RLS probe: 136/136 checks passed`.
+It must end with `RLS probe: 137/137 checks passed`.
 
 Then check by hand:
 
