@@ -1,0 +1,71 @@
+{
+  "name": "pan-iim-network",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Pan-IIM WMC 2026 Network module: NFC tap cards, constellation and overlap view, for a Lovable (Supabase) host app.",
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@10.28.0",
+  "scripts": {
+    "dev": "vite --config harness/vite.config.ts",
+    "harness:api": "node harness/api/server.mjs",
+    "build": "vite build --config harness/vite.config.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint . --max-warnings 0",
+    "test": "vitest run",
+    "db:setup": "node tools/db.mjs setup",
+    "test:sql": "node tools/db.mjs test",
+    "build:sql": "node tools/build-sql-bundle.mjs",
+    "size": "pnpm build && node tools/check-bundle-size.mjs",
+    "e2e": "playwright test --trace off",
+    "probe:local": "node tools/rls-probe/probe.mjs --url http://127.0.0.1:54321 --anon-key local-anon",
+    "manifest": "node tools/card-manifest/cli.mjs",
+    "secrets": "node tools/secret-scan.mjs",
+    "ci": "pnpm typecheck && pnpm lint && pnpm test && pnpm build:sql && pnpm test:sql && pnpm size && pnpm secrets"
+  },
+  "dependencies": {
+    "d3-force": "3.0.0",
+    "d3-quadtree": "3.0.1",
+    "jsqr": "1.4.0",
+    "qrcode-generator": "2.0.4"
+  },
+  "peerDependencies": {
+    "react": ">=18.2",
+    "react-dom": ">=18.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.16.0",
+    "@playwright/test": "1.63.0",
+    "@testing-library/dom": "10.4.0",
+    "@testing-library/react": "16.1.0",
+    "@types/d3-force": "3.0.10",
+    "@types/d3-quadtree": "3.0.6",
+    "@types/node": "22.10.1",
+    "@types/pg": "8.11.10",
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "@vitejs/plugin-react": "4.3.4",
+    "autoprefixer": "10.4.20",
+    "eslint": "9.16.0",
+    "eslint-plugin-react-hooks": "5.1.0",
+    "globals": "15.13.0",
+    "jsdom": "25.0.1",
+    "pg": "8.13.1",
+    "postcss": "8.4.49",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-router-dom": "6.28.0",
+    "tailwindcss": "3.4.15",
+    "typescript": "5.6.3",
+    "typescript-eslint": "8.18.0",
+    "vite": "5.4.11",
+    "vitest": "2.1.8"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
+  }
+}
