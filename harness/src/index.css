@@ -1,0 +1,30 @@
+/* HARNESS ONLY: stands in for the host's src/index.css (shadcn tokens). Values tuned to the wireframe. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 60 20% 95%;          /* off-white #F6F6F1 */
+    --foreground: 180 6% 10%;          /* near-black #16191A */
+    --card: 0 0% 100%;
+    --card-foreground: 180 6% 10%;
+    --primary: 162 50% 24%;            /* deep green #1F5C4A */
+    --primary-foreground: 0 0% 100%;
+    --secondary: 150 22% 90%;
+    --secondary-foreground: 162 50% 24%;
+    --muted: 60 9% 91%;
+    --muted-foreground: 135 3% 43%;    /* #6B716C */
+    --accent: 60 12% 92%;
+    --accent-foreground: 180 6% 10%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 75 10% 88%;              /* warm grey #E4E5DD */
+    --input: 75 10% 85%;
+    --ring: 162 50% 24%;
+    --radius: 1rem;
+  }
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground antialiased; font-family: Inter, system-ui, sans-serif; }
+  h1, h2 { font-family: "Space Grotesk", Inter, system-ui, sans-serif; }
+}

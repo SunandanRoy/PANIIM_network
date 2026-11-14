@@ -28,13 +28,17 @@ The host is either React + Vite (older Lovable projects) or TanStack Start (proj
 - Use the wireframe copy verbatim where it exists (`docs/design/wireframes/`).
 - Colour is never the only cue. Tap targets at least 44 px. Respect `prefers-reduced-motion`.
 
-## Commands (fill in during Phase 1, keep this section current)
-- Install: `<fill in>`
-- Typecheck / lint / unit: `<fill in>`
-- SQL tests (local Postgres): `<fill in>`
-- Build SQL bundle: `<fill in>`
-- Bundle-size check: `<fill in>`
-- E2E: `<fill in>`
+## Commands (keep this section current)
+- Install: `pnpm install` (Node 22, pnpm 10). Local Postgres 16 on localhost:5432 (user/password postgres) for SQL tests.
+- Typecheck / lint / unit: `pnpm typecheck` (strict + Lovable-style loose pass) / `pnpm lint` / `pnpm test`
+- SQL tests (local Postgres): `pnpm test:sql` (shim, install twice, RLS/grants, 96-case matrix, behaviour, perf, uninstall)
+- Build SQL bundle: `pnpm build:sql` (commit `dist/`)
+- Bundle-size check: `pnpm size` (graph chunk ≤ 100 kB gz, module eager < 60 kB gz, no service key)
+- E2E: `pnpm e2e` (Playwright, fresh `net_e2e` database, harness API on :54322)
+- RLS probe: `pnpm probe:local` (needs `pnpm db:setup` and `pnpm harness:api`); real project: see INTEGRATION.md
+- Card manifest: `node tools/card-manifest/cli.mjs --count N --batch B1`
+- Install into a host clone: `node scripts/install-into-host.mjs --host ../host [--dry-run]`
+- Integration proof: `node scripts/prove-integration.mjs <work dir>` (writes docs/INTEGRATION_PROOF.md)
 
 ## Definition of done
 Tests pass in CI and you have shown the output. Graph chunk at most 100 kB gzipped. RLS probe passes. Acceptance criterion of the ticket is tested. Status recorded in `docs/STATUS.md`.

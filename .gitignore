@@ -10,3 +10,4 @@ test-results/
 docs/design/figma/make-export/
 *.log
 .DS_Store
+harness/proof/.work/
