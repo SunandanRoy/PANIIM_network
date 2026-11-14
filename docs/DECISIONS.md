@@ -48,3 +48,5 @@ PRD defaults D-1 to D-8 are taken as written (owner said: follow PRD BAU).
 | E-27 | `net_admin_set_flag` (kill switch) requires `net_is_admin()` (host_mapping, default: `net_staff.role = 'admin'`); desk role cannot flip it. | Least privilege. | — |
 | E-28 | `net_record_meeting` accepts all six sources (K-28), but tap/scan through it follow the same mutual-evidence rule as E-07. Cards use `net_connect_via_card`. | One rule. | — |
 | E-29 | Tapping your own card while connected shows "met" fields plus contact if share-on-tap is on (tap path), not tap-stranger fields. | Consistency between tap and profile. | — |
+| E-30 | No licence file: all rights reserved (owner's choice, 14 Nov). Repo stays public (owner's choice); it holds no secrets or real data, and demo tokens in `seed_demo.sql` work only in the local harness. | Owner's answers at Gate E. | Add a LICENSE file if the owner decides otherwise. |
+| E-31 | Gate E: `main` created from the context-pack commit; the build lands through a PR from `claude/sharp-mayer-pnzt71`; `v0.1.0` is tagged on `main` after the owner merges. | Owner's answer. | — |
