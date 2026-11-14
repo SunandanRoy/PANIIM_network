@@ -28,14 +28,19 @@ export function VisibilitySettings({ onSaved }: { onSaved?: (s: Settings) => voi
 
   const set = async (key: Parameters<typeof api.setConsent>[0], value: Parameters<typeof api.setConsent>[1]) => {
     setBusy(true);
+    const before = s;
+    q.setData({ ...s, [key]: value } as Settings); // optimistic; reverted below if the server refuses
     try {
       const r = await api.setConsent(key, value);
-      if (r.error) adapter.toast("That setting wasn't saved.", { tone: "error" });
-      else {
+      if (r.error) {
+        q.setData(before);
+        adapter.toast("That setting wasn't saved.", { tone: "error" });
+      } else {
         q.setData(r);
         onSaved?.(r);
       }
     } catch {
+      q.setData(before);
       adapter.toast("That setting wasn't saved. Check your signal.", { tone: "error" });
     } finally {
       setBusy(false);
@@ -64,7 +69,7 @@ export function VisibilitySettings({ onSaved }: { onSaved?: (s: Settings) => voi
         <div className="space-y-2">
           {SCOPE_OPTIONS.map((o) => (
             <label key={o.value} className={`flex min-h-14 cursor-pointer items-start gap-3 rounded-xl border p-3 ${s.visibility_scope === o.value ? "border-primary" : ""}`}>
-              <input type="radio" name="net-scope" className="mt-1 h-5 w-5" checked={s.visibility_scope === o.value} disabled={busy} onChange={() => set("visibility_scope", o.value)} />
+              <input type="radio" name="net-scope" className="mt-1 h-5 w-5" checked={s.visibility_scope === o.value} onChange={() => set("visibility_scope", o.value)} />
               <span><span className="font-semibold">{o.label}</span><span className="block text-sm text-muted-foreground">{o.help}</span></span>
             </label>
           ))}

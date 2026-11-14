@@ -24,7 +24,7 @@ export default function NetworkPage() {
         <label className="text-sm font-semibold" htmlFor="host-search">Search delegates</label>
         <input id="host-search" placeholder="Name, institute, topic or method" className="mt-1 min-h-12 w-full rounded-xl border bg-card px-4" />
       </div>
-      <div className="-mx-4 flex gap-2 overflow-x-auto px-4">
+      <div className="-mx-4 flex gap-2 overflow-x-auto px-4" tabIndex={0} role="group" aria-label="Themes (host)">
         {chips.map((c, i) => <span key={c} className={`whitespace-nowrap rounded-full border px-4 py-2 ${i === 0 ? "bg-foreground text-background" : "bg-card"}`}>{c}</span>)}
       </div>
       <div className="grid grid-cols-3 gap-3">

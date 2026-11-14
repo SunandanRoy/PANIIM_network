@@ -17,6 +17,7 @@ const pool = new pg.Pool({
   database: process.env.NET_DB ?? "net_dev",
   max: 10,
 });
+pool.on("error", (e) => console.error("pg pool error (ignored):", e.message));
 const ident = (s) => (typeof s === "string" && /^[a-z_][a-z0-9_]*$/.test(s) ? `"${s}"` : null);
 
 function claimsFrom(req) {
@@ -74,7 +75,22 @@ async function readBody(req) {
   return raw ? JSON.parse(raw) : {};
 }
 
-function toParam(v) {
+// Parameter types per function, so json/jsonb arguments are JSON-encoded exactly like PostgREST does.
+const argTypes = new Map();
+async function typesOf(fn) {
+  if (!argTypes.has(fn)) {
+    const r = await pool.query(
+      "select a.name, a.type from pg_proc p, unnest(p.proargnames, p.proargtypes::regtype[]::text[]) as a(name, type) " +
+        "where p.proname = $1 and p.pronamespace = 'public'::regnamespace",
+      [fn],
+    );
+    argTypes.set(fn, new Map(r.rows.map((x) => [x.name, x.type])));
+  }
+  return argTypes.get(fn);
+}
+
+function toParam(v, type) {
+  if (type === "jsonb" || type === "json") return v === undefined ? null : JSON.stringify(v);
   if (Array.isArray(v) && v.every((x) => typeof x === "number")) return v;
   return v !== null && typeof v === "object" ? JSON.stringify(v) : v;
 }
@@ -103,7 +119,8 @@ const server = http.createServer(async (req, res) => {
       const args = req.method === "POST" ? await readBody(req) : Object.fromEntries(url.searchParams);
       const keys = Object.keys(args).filter((k) => ident(k));
       const sql = `select public.${name}(${keys.map((k, i) => `${ident(k)} => $${i + 1}`).join(", ")}) as r`;
-      const rows = await asRole(req, (c) => c.query(sql, keys.map((k) => toParam(args[k]))).then((r) => r.rows));
+      const types = await typesOf(rpc[1]);
+      const rows = await asRole(req, (c) => c.query(sql, keys.map((k) => toParam(args[k], types.get(k)))).then((r) => r.rows));
       return send(res, 200, rows[0]?.r ?? null);
     }
     const table = url.pathname.match(/^\/rest\/v1\/([a-z0-9_]+)$/);
